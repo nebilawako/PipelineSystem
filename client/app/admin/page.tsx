@@ -138,6 +138,14 @@ export function CreateUserForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const digitsOnly = e.target.value.replace(/\D/g, '');
+  
+    if (digitsOnly.length <= 10) {
+      setForm({ ...form, phone: digitsOnly });
+    }
+  };
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -167,6 +175,7 @@ export function CreateUserForm() {
       console.error(error);
     }
   };
+  
 
   return (
     <>
@@ -175,7 +184,14 @@ export function CreateUserForm() {
         <Input name="name" placeholder="Full Name" value={form.name} onChange={handleChange} required />
         <Input name="username" placeholder="Username" value={form.username} onChange={handleChange} required />
         <Input name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} required />
-        <Input name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} />
+        <Input
+  name="phone"
+  placeholder="Phone (10 digits only)"
+  value={form.phone}
+  onChange={handlePhoneChange}
+  required
+/>
+
         <Input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
         <select name="role" value={form.role} onChange={handleChange} className="w-full border px-3 py-2 rounded-md" required>
           <option value="" disabled hidden>Role</option>
@@ -274,6 +290,16 @@ export function UpdateUserForm() {
     }
   };
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const digitsOnly = e.target.value.replace(/\D/g, '');
+  
+    if (digitsOnly.length <= 10) {
+      setForm({ ...form, phone: digitsOnly });
+    }
+  };
+  
+  
+
   return (
     <>
       <h3 className="text-lg font-medium">Update User</h3>
@@ -330,7 +356,14 @@ export function UpdateUserForm() {
         <Input name="name" value={form.name} onChange={handleChange} placeholder="Full Name" />
         <Input name="username" value={form.username} onChange={handleChange} placeholder="Username" />
         <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="Email" />
-        <Input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="Phone" />
+        <Input
+  name="phone"
+  placeholder="Phone (10 digits only)"
+  value={form.phone}
+  onChange={handlePhoneChange}
+  required
+/>
+
         <Input name="password" type="text" value={form.password} onChange={handleChange} placeholder="Password" />
         <Select value={form.role} onValueChange={(val) => setForm(prev => ({ ...prev, role: val }))}>
           <SelectTrigger id="role" name="role">
